@@ -1988,8 +1988,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Contact'
+  name: 'Contact',
+  created: function created() {
+    this.loadData();
+  },
+  methods: {
+    loadData: function loadData() {
+      var _this = this;
+
+      var url = this.url + '/api/getContact';
+      this.axios.get(url).then(function (response) {
+        _this.contacts = response;
+      });
+    },
+    mounted: function mounted() {
+      console.log('Contact List Component Mounted');
+    },
+    data: function data() {
+      return {
+        url: document.head.querySelector('meta[name="url"]').content,
+        contacts: []
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -19794,7 +19842,47 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
-      _c("h2", [_vm._v("Contact page")])
+      _c("h2", { staticClass: "text-center text-white bg-primary p-2 mt-5" }, [
+        _vm._v("Contact page")
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table" }, [
+        _c("thead", [
+          _c("tr", [
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Designation")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Contact Number")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tbody", [
+          _c("tr", [
+            _c("td", [_vm._v("1")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("Tester")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("test@gmail.com")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("1test")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("555-555-555-555")]),
+            _vm._v(" "),
+            _c("td", [
+              _c("button", { staticClass: "btn btn-sm btn-danger" }, [
+                _vm._v("Delete")
+              ])
+            ])
+          ])
+        ])
+      ])
     ])
   }
 ]
