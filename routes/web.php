@@ -18,5 +18,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('api')->group(function() {
+    // Get Contacts
     Route::get('getContacts', 'ContactController@getContacts');
+    // Post Contact
+    Route::post('save_contact', 'ContactController@save_contact');
 });

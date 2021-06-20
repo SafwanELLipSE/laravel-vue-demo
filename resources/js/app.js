@@ -8,6 +8,7 @@ Vue.use(VueRouter);
 import App from './App.vue';
 import Home from '../js/components/Home.vue';
 import ContactList from '../js/components/ContactList.vue';
+import AddContact from '../js/components/AddContact.vue';
 
 import VueAxios from 'vue-axios';
 import axios from "axios";
@@ -23,6 +24,11 @@ const routes = [{
         name: '/contacts',
         path: '/contacts',
         component: ContactList
+    },
+    {
+        name: '/add_contacts',
+        path: '/add_contacts',
+        component: AddContact
     }
 ];
 

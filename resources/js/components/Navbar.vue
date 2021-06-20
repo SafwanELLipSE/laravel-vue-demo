@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/contacts">Contacts</router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/add_contacts">Add Contact</router-link>
+                </li>
             </ul>
         </div>
         </div>
