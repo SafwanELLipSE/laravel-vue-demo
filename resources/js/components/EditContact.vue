@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <h2 class="text-center text-white bg-primary p-2 mt-5">Add Contact page</h2>
+        <h2 class="text-center text-white bg-primary p-2 mt-5">Edit Contact page</h2>
 
         <div class="card-body">
             <div class="col-md-6 offset-md-3">
-                <form id="validateForm" @submit.prevent="saveContact" enctype="multipart/form-data" novalidate>
+                <form id="validateForm" @submit.prevent="updateContact" enctype="multipart/form-data" novalidate>
                     
                     <div class="alert alert-danger" v-if="errors.length">
                         <ul class="mb-0">
@@ -34,6 +34,9 @@
                         <label for="">Biography:</label>
                         <textarea type="text" cols="20" rows="3" name="bio" id="bio" v-model="contact.bio" class="form-control" placeholder="Enter Your Biography"></textarea>
                     </div>
+                    <div class="form-group" v-if="contact.image">
+                        <img :src="`${url+'/'+contact.image}`" alt="image" width="100" height="150">
+                    </div>
                     <div class="custom-file">
                         <input type="file" name="image" v-on:change="saveImage" class="custom-file-input" id="validatedCustomFile" >
                         <label class="custom-file-label" for="validatedCustomFile">Choose File...</label>
@@ -61,7 +64,14 @@ export default {
         }
     },
     methods:{
-        saveContact(){
+        loadData(){
+            let url = this.url + `/api/get_contact/${this.$route.params.id}`;
+            this.axios.get(url).then(response => {
+                this.contact = response.data;
+                console.log(this.contact);   
+            });
+        },
+        updateContact(){
             this.errors=[];
             if(!this.contact.name){
                 this.errors.push('Name is require');
@@ -88,16 +98,13 @@ export default {
                 formData.append('bio', this.contact.bio);
                 formData.append('image', this.image);
                 
-                let url = this.url + '/api/save_contact';
+                let url = this.url + `/api/update_contact/${this.$route.params.id}`;
                 this.axios.post(url, formData).then((response) =>{
                     if(response.status){
-                        document.getElementById('name').value ='';
-                        document.getElementById('email').value ='';
-                        document.getElementById('designation').value ='';
-                        document.getElementById('contact_no').value ='';
-                        document.getElementById('bio').value ='';
-                        document.getElementById('validatedCustomFile').value ='';
                         this.$utils.showSuccess('Success',response.message);
+                        this.$router.push({
+                            name:'/'
+                        })
                     }else{
                         this.$utils.showError('Error',response.message);
                     }
@@ -111,8 +118,15 @@ export default {
             console.log(this.image);
         }
     },
+    created(){
+        this.loadData()
+    },
     mounted: function(){
-        console.log('Add contact componant loaded')
+        console.log('Edit contact componant loaded')
     }
 }
 </script>
+
+<style scoped>
+
+</style>
